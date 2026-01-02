@@ -8,13 +8,13 @@ This project is inspired by real-world observability tools like **ELK Stack, Dat
 
 ## 🚀 Features
 
-* 📡 **Real-time Log Monitoring** – Watches log files as they update
-* 🔎 **Severity-based Filtering** – INFO / WARNING / ERROR / CRITICAL
-* 📊 **Live Error Frequency Chart** – Visualize system health instantly
-* 🧠 **Smart Log Parsing** – Handles mixed log formats
-* 🖥️ **Interactive GUI Dashboard** – Built with Tkinter + ttkbootstrap
-* 🧵 **Non-blocking Monitoring** – Uses background threads
-* 🗂️ **Sample Logs Included** – Test instantly
+- 📡 **Real-time Log Monitoring** – Watches log files as they update
+- 🔎 **Severity-based Filtering** – INFO / WARNING / ERROR / CRITICAL
+- 📊 **Live Error Frequency Chart** – Visualize system health instantly
+- 🧠 **Smart Log Parsing** – Handles mixed log formats
+- 🖥️ **Interactive GUI Dashboard** – Built with Tkinter + ttkbootstrap
+- 🧵 **Non-blocking Monitoring** – Uses background threads
+- 🗂️ **Sample Logs Included** – Test instantly
 
 ---
 
@@ -22,10 +22,10 @@ This project is inspired by real-world observability tools like **ELK Stack, Dat
 
 Logs are the backbone of debugging and production monitoring. Raw log files quickly become unmanageable as systems grow. LogSentinel turns plain-text logs into actionable insights by:
 
-* Reducing noise via filters
-* Highlighting critical failures
-* Tracking error trends visually
-* Speeding up debugging and incident response
+- Reducing noise via filters
+- Highlighting critical failures
+- Tracking error trends visually
+- Speeding up debugging and incident response
 
 ---
 
@@ -60,7 +60,7 @@ logsentinel/
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/logsentinel.git
+git clone https://github.com/Sagnik-Bhattacharya/LogSentinel.git
 cd logsentinel
 ```
 
@@ -97,9 +97,9 @@ python app/main.py
 
 ### Manual Testing
 
-* Add new lines to the log file while monitoring
-* Try different severity levels
-* Apply filters and observe chart updates
+- Add new lines to the log file while monitoring
+- Try different severity levels
+- Apply filters and observe chart updates
 
 ### Example Test Logs
 
@@ -114,21 +114,21 @@ CRITICAL Kernel panic
 
 ## 📈 Real-World Use Cases
 
-* 🔧 Local development debugging
-* 🚨 Production incident monitoring
-* 📊 System health visualization
-* 🔍 Root-cause analysis
-* 🛡️ Security & audit log review
+- 🔧 Local development debugging
+- 🚨 Production incident monitoring
+- 📊 System health visualization
+- 🔍 Root-cause analysis
+- 🛡️ Security & audit log review
 
 ---
 
 ## 🧩 Future Enhancements (Planned)
 
-* Alert popups & sound notifications
-* Regex-based filters
-* Save filter presets
-* Export error reports
-* Multi-file monitoring
+- Alert popups & sound notifications
+- Regex-based filters
+- Save filter presets
+- Export error reports
+- Multi-file monitoring
 
 ---
 
