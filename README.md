@@ -2,8 +2,6 @@
 
 **LogSentinel** is a real-time log monitoring, filtering, and visualization tool built with Python and Tkinter. It helps developers and system engineers observe application behavior, detect critical issues early, and analyze log trends through an interactive GUI dashboard.
 
-This project is inspired by real-world observability tools like **ELK Stack, Datadog, and Splunk**, implemented as a lightweight, local, and beginner-to-intermediate friendly system.
-
 ---
 
 ## 🚀 Features
