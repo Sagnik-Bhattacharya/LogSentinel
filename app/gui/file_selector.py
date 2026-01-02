@@ -22,11 +22,11 @@ class FileSelector(ttk.Frame):
         self.button.pack(side=RIGHT)
 
     def open_file_dialog(self):
-        file_path = filedialog.askopenfilename(
-            title="Select log file",
+        file_paths = filedialog.askopenfilenames(
+            title="Select log files",
             filetypes=[("Log files", "*.log"), ("All files", "*.*")]
         )
 
-        if file_path:
-            self.label.config(text=file_path)
-            self.on_file_selected(file_path)
+        if file_paths:
+            self.label.config(text=f"{len(file_paths)} files selected")
+            self.on_file_selected(file_paths)

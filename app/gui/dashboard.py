@@ -2,9 +2,13 @@ import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 from tkinter.scrolledtext import ScrolledText
 from matplotlib.figure import Figure
+from ttkbootstrap.dialogs import Messagebox
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 from utils.constants import LOG_LEVELS
+import json
+import csv
+from tkinter import filedialog
 
 # Updated for a more professional palette
 LOG_COLORS = {
@@ -32,6 +36,7 @@ class Dashboard(ttk.Frame):
         self.left_panel = ttk.Frame(self.top_row)
         self.left_panel.pack(side=LEFT, fill=BOTH, expand=True)
         
+        
         self.right_panel = ttk.Frame(self.top_row)
         self.right_panel.pack(side=RIGHT, fill=BOTH)
 
@@ -43,6 +48,92 @@ class Dashboard(ttk.Frame):
         self._init_status()
 
     # ───────────────── Filters & Controls ───────────────── #
+    def show_popup_alert(self, title, message, level="danger"):
+        Messagebox.show_error(
+            title=title,
+            message=message,
+            parent=self
+        )
+    
+    
+
+    def export_csv(self):
+        if not hasattr(self, "all_logs") or not self.all_logs:
+            self.show_alert("No logs to export!")
+            return
+
+        file_path = filedialog.asksaveasfilename(
+            defaultextension=".csv",
+            filetypes=[("CSV files", "*.csv")],
+            title="Save logs as CSV"
+        )
+        if not file_path:
+            return
+
+        # Save logs with columns: Level, Message
+        try:
+            with open(file_path, "w", newline="", encoding="utf-8") as f:
+                writer = csv.writer(f)
+                writer.writerow(["Level", "Message"])
+                for line, level in self.all_logs:
+                    writer.writerow([level, line])
+            self._set_status(f"Logs exported to CSV: {file_path}", "success")
+        except Exception as e:
+            self.show_alert(f"CSV Export Failed: {e}")
+
+    def export_json(self):
+        if not hasattr(self, "all_logs") or not self.all_logs:
+            self.show_alert("No logs to export!")
+            return
+
+        file_path = filedialog.asksaveasfilename(
+            defaultextension=".json",
+            filetypes=[("JSON files", "*.json")],
+            title="Save logs as JSON"
+        )
+        if not file_path:
+            return
+
+        try:
+            data = [{"level": level, "message": line} for line, level in self.all_logs]
+            with open(file_path, "w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2)
+            self._set_status(f"Logs exported to JSON: {file_path}", "success")
+        except Exception as e:
+            self.show_alert(f"JSON Export Failed: {e}")
+
+    
+    def _init_controls(self):
+        # Pause Button
+        self.pause_btn = ttk.Button(
+            self.left_panel,
+            text="Pause Stream",
+            bootstyle="warning-outline",
+            width=15,
+            command=self.toggle_pause
+        )
+        self.pause_btn.pack(side=TOP, anchor=W, pady=(0, 10))
+
+        # Export Buttons
+        export_frame = ttk.Frame(self.left_panel)
+        export_frame.pack(side=TOP, anchor=W, pady=(10, 0))
+
+        ttk.Button(
+            export_frame,
+            text="Export CSV",
+            bootstyle="info-outline",
+            width=15,
+            command=self.export_csv
+        ).pack(side=LEFT, padx=5)
+
+        ttk.Button(
+            export_frame,
+            text="Export JSON",
+            bootstyle="info-outline",
+            width=15,
+            command=self.export_json
+        ).pack(side=LEFT, padx=5)
+
 
     def _init_filters(self):
         self.filters = {lvl: ttk.BooleanVar(value=True) for lvl in LOG_LEVELS}
@@ -63,16 +154,16 @@ class Dashboard(ttk.Frame):
                 command=self.on_filter_change
             ).pack(side=LEFT, padx=10)
 
-    def _init_controls(self):
-        # Pause Button moved to a more prominent location
-        self.pause_btn = ttk.Button(
-            self.left_panel,
-            text="Pause Stream",
-            bootstyle="warning-outline",
-            width=15,
-            command=self.toggle_pause
-        )
-        self.pause_btn.pack(side=BOTTOM, anchor=W, pady=(10, 0))
+    # def _init_controls(self):
+    #     # Pause Button moved to a more prominent location
+    #     self.pause_btn = ttk.Button(
+    #         self.left_panel,
+    #         text="Pause Stream",
+    #         bootstyle="warning-outline",
+    #         width=15,
+    #         command=self.toggle_pause
+    #     )
+    #     self.pause_btn.pack(side=BOTTOM, anchor=W, pady=(10, 0))
 
     def should_display(self, level):
         return self.filters[level].get()
@@ -177,6 +268,7 @@ class Dashboard(ttk.Frame):
             )
 
     def refresh_logs(self, logs):
+        self.all_logs = logs
         self.log_area.config(state=NORMAL)
         self.log_area.delete("1.0", END)
         for line, level in logs:

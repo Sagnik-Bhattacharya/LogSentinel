@@ -1,0 +1,16 @@
+Level,Message
+INFO,app.log | [INFO] App started
+ERROR,db.log | 2026-01-02 18:40:01 [ERROR] Database down
+WARNING,app.log | WARNING Disk almost full
+ERROR,app.log | 2026-01-02 18:40:01 [ERROR] Database down
+CRITICAL,app.log | CRITICAL Kernel panic
+INFO,app.log | [INFO] THIS LINE WAS ADDED AFTER MONITOR START
+CRITICAL,app.log | CRITICAL Kernel panic
+CRITICAL,app.log | CRITICAL Kernel panic
+CRITICAL,app.log | CRITICAL Kernel panic
+CRITICAL,app.log | CRITICAL Kernel panic
+INFO,app.log | [INFO] THIS LINE WAS ADDED AFTER MONITOR START
+INFO,app.log | [INFO] THIS LINE WAS ADDED AFTER MONITOR START
+INFO,app.log | [INFO] THIS LINE WAS ADDED AFTER MONITOR START
+CRITICAL,app.log | CRITICAL Kernel panic
+CRITICAL,app.log | CRITICAL Kernel panic
