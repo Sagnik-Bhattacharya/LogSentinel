@@ -72,13 +72,21 @@ class LogSentinelApp:
             self.dashboard.update_count(level, self.level_counts[level])
 
         # add log if filter allows
-        self.dashboard.add_log(line, level)
+        self.refresh_filtered_logs()
 
         # update chart periodically
         self.dashboard.update_chart(self.level_counts)
     
     def refresh_filtered_logs(self):
         self.dashboard.refresh_logs(self.all_logs)
+
+        filtered_counts = {lvl: 0 for lvl in LOG_LEVELS}
+        for _, level in self.all_logs:
+            if self.dashboard.should_display(level):
+                filtered_counts[level] += 1
+
+        self.dashboard.update_chart(filtered_counts)
+
 
         
     def pause_monitoring(self):

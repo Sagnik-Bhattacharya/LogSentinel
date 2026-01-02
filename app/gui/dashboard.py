@@ -106,7 +106,7 @@ class Dashboard(ttk.Frame):
         self.log_area.delete("1.0", "end")
         for line, level in all_lines:
             if self.should_display(level):
-                self.log_area.insert("end", line + "\n")
+                self.log_area.insert("end", line + "\n", level)
         self.log_area.see("end")
 
         
@@ -125,11 +125,14 @@ class Dashboard(ttk.Frame):
     def should_display(self, level):
         return self.filters.get(level, False).get()
 
+    # def add_log(self, line, level):
+    #     if self.should_display(level):
+    #         # Insert colored log
+    #         self.log_area.insert("end", line + "\n", level)
+    #         self.log_area.see("end")
+
     def add_log(self, line, level):
-        if self.should_display(level):
-            # Insert colored log
-            self.log_area.insert("end", line + "\n", level)
-            self.log_area.see("end")
+        pass
 
     def update_count(self, level, value):
         if level in self.count_vars:
